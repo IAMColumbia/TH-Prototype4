@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject powerupPrefab;
     private float _spawnRange = 9.0f;
     public int _enemyCount;
     public int _waveNumber = 1;
@@ -12,17 +13,18 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemyWave(_waveNumber);    
+        SpawnEnemyWave(_waveNumber);
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
 
     void Update()
     {
         _enemyCount = FindObjectsOfType<Enemy>().Length; 
-
         if (_enemyCount == 0)
         {
             _waveNumber++;
             SpawnEnemyWave(_waveNumber);
+            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
     }
 
